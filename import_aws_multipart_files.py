@@ -15,9 +15,12 @@ for i in range(int(end_point)):
             upload_num = "00"+ str(upload_num)
         else:
             upload_num = "0"+str(upload_num)
+    print("Uploading part " + upload_num)
     code= os.system(('cmd /c aws s3api upload-part --bucket ' + bucket + " --key " + key + " --part-number " + str(i+1) +" --body " + file_path + key +"." + upload_num + " --upload-id " + upload_id))
+    print()
     code=code+1
-    if code !=0:
-        print(i+1)
+    if code ==0:
+        print("Part " + upload_num + "Failed...")
         exit(code)
+    print("Part " + upload_num + "Completed")
 print("Done..")
